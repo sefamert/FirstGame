@@ -73,6 +73,7 @@ void MainWindow::decreaseTime()
 		}
 	}
 	ui->lcdTimer->display(secs);
+	
 	if (secs == 0)
 		timer->stop();
 }
