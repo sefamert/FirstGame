@@ -43,6 +43,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushPlay_clicked()
 {
+	srand(time(NULL));
 	int num = qrand() % 6 + 1;
 	arr.append(num);
 	while(arr.size() != 6)
@@ -59,10 +60,7 @@ void MainWindow::on_pushPlay_clicked()
 		}
 	}
 
-
 	timer->start(1000);
-
-
 
 }
 
@@ -86,206 +84,32 @@ void MainWindow::decreaseTime()
 
 void MainWindow::on_pushPicture1_clicked()
 {
-	if(num >= 2)
-	{
-		num = 0;
-		return;
-	}
-	butList[0]->setStyleSheet(QString("border-image: url(:/images/%1.png);").arg(list[arr[0] - 1]));
-
-	if (selectedImage.isEmpty())
-	{
-		selectedImage = list[arr[0] - 1];
-		selectedButton = ui->pushPicture1;
-		num = num + 1;
-	}
-
-	else
-	{
-		num = num + 1;
-		if (QString::compare(list[arr[0] - 1],selectedImage)) //Burda compare bana doğruysa 0 yanlışsa 1 gönderiyor
-		{
-			cntrl = 1;
-			mySlot();
-		}
-		else
-		{
-			selectedList << ui->pushPicture1;
-			selectedList << selectedButton;
-			selectedImage = "";
-			selectedButton = NULL;
-		}
-	}
+	handleSelection(0);
 }
 
 void MainWindow::on_pushPicture2_clicked()
 {
-	if(num >= 2)
-	{
-		num = 0;
-		return;
-	}
-	butList[1]->setStyleSheet(QString("border-image: url(:/images/%1.png);").arg(list[arr[1] - 1]));
-
-	if (selectedImage.isEmpty())
-	{
-		selectedImage = list[arr[1] - 1];
-		selectedButton = ui->pushPicture2;
-		num = num + 1;
-	}
-
-	else
-	{
-		num = num + 1;
-		if (QString::compare(list[arr[1] - 1],selectedImage))
-		{
-			cntrl = 2;
-			mySlot();
-		}
-		else
-		{
-			selectedList << ui->pushPicture2;
-			selectedList << selectedButton;
-			selectedImage = "";
-			selectedButton = NULL;
-		}
-	}
+	handleSelection(1);
 }
 
 void MainWindow::on_pushPicture3_clicked()
 {
-	if(num >= 2)
-	{
-		num = 0;
-		return;
-	}
-	butList[2]->setStyleSheet(QString("border-image: url(:/images/%1.png);").arg(list[arr[2] - 1]));
-
-	if (selectedImage.isEmpty())
-	{
-		selectedImage = list[arr[2] - 1];
-		selectedButton = ui->pushPicture3;
-		num = num + 1;
-	}
-
-	else
-	{
-		num = num + 1;
-		if (QString::compare(list[arr[2] - 1],selectedImage))
-		{
-			cntrl = 3;
-			mySlot();
-		}
-		else
-		{
-			selectedList << ui->pushPicture3;
-			selectedList << selectedButton;
-			selectedImage = "";
-			selectedButton = NULL;
-		}
-	}
+	handleSelection(2);
 }
 
 void MainWindow::on_pushPicture4_clicked()
 {
-	if(num >= 2)
-	{
-		num = 0;
-		return;
-	}
-	butList[3]->setStyleSheet(QString("border-image: url(:/images/%1.png);").arg(list[arr[3] - 1]));
-
-	if (selectedImage.isEmpty())
-	{
-		selectedImage = list[arr[3] - 1];
-		selectedButton = ui->pushPicture4;
-		num = num + 1;
-	}
-
-	else
-	{
-		num = num + 1;
-		if (QString::compare(list[arr[3] - 1],selectedImage))
-		{
-			cntrl = 4;
-			mySlot();
-		}
-		else
-		{
-			selectedList << ui->pushPicture4;
-			selectedList << selectedButton;
-			selectedImage = "";
-			selectedButton = NULL;
-		}
-	}
+	handleSelection(3);
 }
 
 void MainWindow::on_pushPicture5_clicked()
 {
-	if(num >= 2)
-	{
-		num = 0;
-		return;
-	}
-	butList[4]->setStyleSheet(QString("border-image: url(:/images/%1.png);").arg(list[arr[4] - 1]));
-
-	if (selectedImage.isEmpty())
-	{
-		selectedImage = list[arr[4] - 1];
-		selectedButton = ui->pushPicture5;
-		num = num + 1;
-	}
-
-	else
-	{
-		num = num + 1;
-		if (QString::compare(list[arr[4] - 1],selectedImage))
-		{
-			cntrl = 5;
-			mySlot();
-		}
-		else
-		{
-			selectedList << ui->pushPicture5;
-			selectedList << selectedButton;
-			selectedImage = "";
-			selectedButton = NULL;
-		}
-	}
+	handleSelection(4);
 }
 
 void MainWindow::on_pushPicture6_clicked()
 {
-	if(num >= 2)
-	{
-		num = 0;
-		return;
-	}
-	butList[5]->setStyleSheet(QString("border-image: url(:/images/%1.png);").arg(list[arr[5] - 1]));
-
-	if (selectedImage.isEmpty())
-	{
-		selectedImage = list[arr[5] - 1];
-		selectedButton = ui->pushPicture6;
-		num = num + 1;
-	}
-
-	else
-	{
-		num = num + 1;
-		if (QString::compare(list[arr[5] - 1],selectedImage))
-		{
-			cntrl = 6;
-			mySlot();
-		}
-		else
-		{
-			selectedList << ui->pushPicture6;
-			selectedList << selectedButton;
-			selectedImage = "";
-			selectedButton = NULL;
-		}
-	}
+	handleSelection(5);
 }
 
 void MainWindow::mySlot()
@@ -392,6 +216,40 @@ void MainWindow::mySlot()
 		timer2->stop();
 	}
 
+}
+
+void MainWindow::handleSelection(int index)
+{
+	if(num >= 2)
+	{
+		num = 0;
+		return;
+	}
+	butList[index]->setStyleSheet(QString("border-image: url(:/images/%1.png);").arg(list[arr[index] - 1]));
+
+	if (selectedImage.isEmpty())
+	{
+		selectedImage = list[arr[index] - 1];
+		selectedButton = butList[index];
+		num = num + 1;
+	}
+
+	else
+	{
+		num = num + 1;
+		if (QString::compare(list[arr[index] - 1],selectedImage))
+		{
+			cntrl = index + 1;
+			mySlot();
+		}
+		else
+		{
+			selectedList << butList[index];
+			selectedList << selectedButton;
+			selectedImage = "";
+			selectedButton = NULL;
+		}
+	}
 }
 
 

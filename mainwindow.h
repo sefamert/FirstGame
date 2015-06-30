@@ -41,6 +41,7 @@ private slots:
 	void mySlot();
 
 private:
+	void handleSelection(int index);
 	Ui::MainWindow *ui;
 	QStringList list;
 	QString selectedImage;

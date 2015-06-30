@@ -13,11 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    gamecaglar.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    gamecaglar.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    gamecaglar.ui
 
 RESOURCES += \
     art.qrc
