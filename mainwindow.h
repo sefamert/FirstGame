@@ -18,6 +18,10 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
+	int cntrl;
+	QList<QPushButton *> selectedList;
+	int num;
+
 private slots:
 	void on_pushPlay_clicked();
 	void decreaseTime();
@@ -34,6 +38,8 @@ private slots:
 
 	void on_pushPicture6_clicked();
 
+	void mySlot();
+
 private:
 	Ui::MainWindow *ui;
 	QStringList list;
@@ -41,8 +47,11 @@ private:
 	QPushButton *selectedButton;
 	QList<QPushButton *> butList;
 	QTimer *timer;
+	QTimer *timer2;
+	QPushButton *button;
 	QList <int> arr;
 	int secs;
+	int wait;
 	bool ifAnyOneShow;
 };
 
