@@ -47,8 +47,8 @@
   <widget class="QPushButton" name="pushPlay">
    <property name="geometry">
     <rect>
-     <x>820</x>
-     <y>670</y>
+     <x>70</x>
+     <y>620</y>
      <width>221</width>
      <height>101</height>
     </rect>
@@ -68,8 +68,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>80</y>
+     <x>260</x>
+     <y>70</y>
      <width>641</width>
      <height>311</height>
     </rect>
@@ -161,6 +161,24 @@
      <string/>
     </property>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="pushExt">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>630</y>
+     <width>241</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>25</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>EXIT</string>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -1,5 +1,6 @@
 #include "gamecaglar.h"
 #include "ui_gamecaglar.h"
+#include "finishtest.h"
 
 #include <QTimer>
 #include <QDebug>
@@ -15,7 +16,7 @@ GameCaglar::GameCaglar(QWidget *parent) :
 
 	timer = new QTimer;
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeout()));
-
+    cnt = 0;
 	/* TODO: Do the following with findChildren API */
 	butList << ui->pushPicture1;
 	butList << ui->pushPicture2;
@@ -31,11 +32,26 @@ GameCaglar::GameCaglar(QWidget *parent) :
 		connect(butList[i], SIGNAL(clicked()), mapper, SLOT(map()));
 	}
 	connect(mapper, SIGNAL(mapped(int)), SLOT(buttonClicked(int)));
+
 }
 
 GameCaglar::~GameCaglar()
 {
-	delete ui;
+    delete ui;
+}
+
+void GameCaglar::testFinished(bool timeout)
+{
+    timer->stop();
+    finishTest result;
+    result.timeOut = timeout;
+    result.resultsTest = results;
+    result.cntTest = cnt;
+    result.on_lcdNumber_overflow();
+    result.show();
+    while (result.isVisible())
+        QApplication::processEvents();
+
 }
 
 void GameCaglar::buttonClicked(int index)
@@ -54,22 +70,40 @@ void GameCaglar::buttonClicked(int index)
 		if (opened[0]->styleSheet() == opened[1]->styleSheet()) {
 			opened[0]->setVisible(false);
 			opened[1]->setVisible(false);
+            results << true;
+            cnt = cnt + 1;
+            if(cnt == butList.size() / 2){
+                testFinished(false);
+            }
+
 		} else {
+            results << false;
 			closeButton(opened[0]);
 			closeButton(opened[1]);
 		}
 		opened.clear();
+
+
 		return;
 	}
 }
 
 void GameCaglar::timeout()
 {
-	ui->lcdTimer->display(60 - (int)gameTimer.elapsed() / 1000); //let's hope that no one plays this game more than 1 day!
+    if( (10 - ((int)gameTimer.elapsed() / 1000) ) > 0 ){
+        ui->lcdTimer->display(10 - (int)gameTimer.elapsed() / 1000); //let's hope that no one plays this game more than 1 day!
+    }
+    else
+        ui->lcdTimer->display(0);
+
 	if (gameTimer.elapsed() > 1000 && ui->frameButtons->isEnabled() == false) {
 		ui->frameButtons->setEnabled(true);
 		closeButton();
-	}
+    }
+
+    if( (10 - ((int)gameTimer.elapsed() / 1000) ) == 0 ){
+        testFinished(true);
+    }
 }
 
 void GameCaglar::on_pushPlay_clicked()
@@ -103,4 +137,11 @@ void GameCaglar::closeButton(int button)
 void GameCaglar::closeButton(QPushButton *b)
 {
 	b->setStyleSheet("border-image: url(:/images/background.jpg);");
+}
+
+
+
+void GameCaglar::on_pushExt_clicked()
+{
+    close();
 }

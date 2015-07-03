@@ -19,18 +19,23 @@ class GameCaglar : public QWidget
 public:
 	explicit GameCaglar(QWidget *parent = 0);
 	~GameCaglar();
+    QList<QPushButton *> butList;
+    QList<QPushButton *> testResult;
+    QList<bool> results;
+    int cnt;
 
 private slots:
+    void testFinished(bool timeout);
 	void buttonClicked(int index);
 	void timeout();
 	void on_pushPlay_clicked();
+    void on_pushExt_clicked();
 
 private:
 	void closeButton(int button = -1);
 	void closeButton(QPushButton *b);
 
 	Ui::GameCaglar *ui;
-	QList<QPushButton *> butList;
 	QTimer *timer;
 	QElapsedTimer gameTimer;
 	QList<QPushButton *> opened;
